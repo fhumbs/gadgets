@@ -4,55 +4,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    
     <div id="statuscafe">
       <div id="statuscafe-username"></div>
       <div id="statuscafe-content"></div>
     </div>
+
+    <!-- <script src="https://status.cafe/current-status.js?name=fhumb" defer></script> -->
+    <script type="text/javascript">
+      fetch('https://status.cafe/users/fhumb/status.json')
+        .then( r => r.json() )
+        .then( r => {
+          if (!r.content.length) {
+            document.getElementById("statuscafe-content").innerHTML = 'No status yet.'
+            return
+          }
+          document.getElementById("statuscafe-username").innerHTML = `<span><a href="https://status.cafe/users/fhumb" target="_blank" rel="ugc">${r.author}</a>${r.face}</span><span>${r.timeAgo}</span>`
+          document.getElementById("statuscafe-content").innerHTML = r.content
+        })
+    </script>
+    
+    <script type="text/javascript">
+      if(parent.postMessage) {
+        new ResizeObserver(() => {
+          const height = document.getElementById('statuscafe').offsetHeight;
+          parent.postMessage(height, '*');
+        }).observe(document.getElementById('statuscafe'))
+      }
+    </script>
+    
+    <style>
+      * {
+        background-color: transparent;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "MS UI Gothic", sans-serif;
+      }
+      #statuscafe {
+        padding: .5em;
+      }
+      #statuscafe-username {
+        margin-bottom: .5em;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+      }
+      #statuscafe-content {
+        margin: 0 1em 0.5em 1em;
+      }
+    </style>
+    
   </body>
 </html>
-
-<!-- <script src="https://status.cafe/current-status.js?name=fhumb" defer></script> -->
-<script type="text/javascript">
-  fetch('https://status.cafe/users/fhumb/status.json')
-    .then( r => r.json() )
-    .then( r => {
-      if (!r.content.length) {
-        document.getElementById("statuscafe-content").innerHTML = 'No status yet.'
-        return
-      }
-      document.getElementById("statuscafe-username").innerHTML = `<span><a href="https://status.cafe/users/fhumb" target="_blank" rel="ugc">${r.author}</a>${r.face}</span><span>${r.timeAgo}</span>`
-      document.getElementById("statuscafe-content").innerHTML = r.content
-    })
-</script>
-
-<script type="text/javascript">
-  if(parent.postMessage) {
-    new ResizeObserver(() => {
-      const height = document.getElementById('statuscafe').offsetHeight;
-      parent.postMessage(height, '*');
-    }).observe(document.getElementById('statuscafe'))
-  }
-</script>
-
-<style>
-  * {
-    background-color: transparent;
-  }
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: "MS UI Gothic", sans-serif;
-  }
-  #statuscafe {
-    padding: .5em;
-  }
-  #statuscafe-username {
-    margin-bottom: .5em;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
-  }
-  #statuscafe-content {
-    margin: 0 1em 0.5em 1em;
-  }
-</style>
