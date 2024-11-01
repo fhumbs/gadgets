@@ -1,38 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    
-    <div id="statuscafe">
-      <div id="statuscafe-username"></div>
-      <div id="statuscafe-content"></div>
-    </div>
-
-    <!-- <script src="https://status.cafe/current-status.js?name=fhumb" defer></script> -->
-    <script type="text/javascript">
-      fetch('https://status.cafe/users/fhumb/status.json')
-        .then( r => r.json() )
-        .then( r => {
-          if (!r.content.length) {
-            document.getElementById("statuscafe-content").innerHTML = 'No status yet.'
-            return
-          }
-          document.getElementById("statuscafe-username").innerHTML = `<span><a href="https://status.cafe/users/fhumb" target="_blank" rel="ugc">${r.author}</a>${r.face}</span><span>${r.timeAgo}</span>`
-          document.getElementById("statuscafe-content").innerHTML = r.content
-        })
-    </script>
-    
-    <script type="text/javascript">
-      if(parent.postMessage) {
-        new ResizeObserver(() => {
-          const height = document.getElementById('statuscafe').offsetHeight;
-          parent.postMessage(height, '*');
-        }).observe(document.getElementById('statuscafe'))
-      }
-    </script>
-    
+    <title>Fhumb's Gadgets — status.cafe</title>
     <style>
       * {
         background-color: transparent;
@@ -55,6 +27,39 @@
         margin: 0 1em 0.5em 1em;
       }
     </style>
+    
+  </head>
+
+  
+  <body>
+    
+    <div id="statuscafe">
+      <div id="statuscafe-username"></div>
+      <div id="statuscafe-content"></div>
+    </div>
+
+    <!-- <script src="https://status.cafe/current-status.js?name=fhumb" defer></script> -->
+    <script>
+      fetch('https://status.cafe/users/fhumb/status.json')
+        .then( r => r.json() )
+        .then( r => {
+          if (!r.content.length) {
+            document.getElementById("statuscafe-content").innerHTML = 'No status yet.'
+            return
+          }
+          document.getElementById("statuscafe-username").innerHTML = `<span><a href="https://status.cafe/users/fhumb" target="_blank" rel="ugc">${r.author}</a>${r.face}</span><span>${r.timeAgo}</span>`
+          document.getElementById("statuscafe-content").innerHTML = r.content
+        })
+    </script>
+    
+    <script>
+      if(parent.postMessage) {
+        new ResizeObserver(() => {
+          const height = document.getElementById('statuscafe').offsetHeight;
+          parent.postMessage(height, '*');
+        }).observe(document.getElementById('statuscafe'))
+      }
+    </script>
     
   </body>
 </html>
