@@ -11,7 +11,28 @@
   </body>
 </html>
 
-<script src="https://status.cafe/current-status.js?name=fhumb" defer></script>
+<!-- <script src="https://status.cafe/current-status.js?name=fhumb" defer></script> -->
+<script type="text/javascript">
+  fetch("https://status.cafe/users/fhumb/status.json")
+    .then( r => r.json() )
+    .then( r => {
+      if (!r.content.length) {
+        document.getElementById("statuscafe-content").innerHTML = "No status yet."
+        return
+      }
+      document.getElementById("statuscafe-username").innerHTML = '<a href="https://status.cafe/users/fhumb" target="_blank">' + r.author + '</a> ' + r.face + ' <span>' + r.timeAgo + '</span>'
+      document.getElementById("statuscafe-content").innerHTML = r.content
+    })
+</script>
+
+<script type="text/javascript">
+  if(parent.postMessage) {
+    new ResizeObserver(() => {
+      const height = document.getElementById('statuscafe').offsetHeight;
+      parent.postMessage(height, '*');
+    }).observe(document.getElementById('statuscafe'))
+  }
+</script>
 
 <style>
   * {
@@ -26,6 +47,8 @@
   }
   #statuscafe-username {
     margin-bottom: .5em;
+    display: flex;
+    justify-content: space-between;
   }
   #statuscafe-content {
     margin: 0 1em 0.5em 1em;
