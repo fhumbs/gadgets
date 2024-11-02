@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fhumb's Gadgets — status.cafe</title>
+    <style>
+      * {
+        background-color: transparent;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    
+  </head>
+
+  
+  <body>
+
+    <main>
+      <!-- FC2 Counter  Starts here -->
+      <script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=40005962&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=40005962&main=1" /></noscript>
+      <!-- FC2 Counter  Ends here -->
+    </main>
+    
+    <script>
+      if(parent.postMessage) {
+        new ResizeObserver(() => {
+          const height = document.getElementById('statuscafe').offsetHeight;
+          parent.postMessage(height, '*');
+        }).observe(document.getElementById('statuscafe'))
+      }
+    </script>
+    
+  </body>
+</html>
